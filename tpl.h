@@ -14,6 +14,8 @@
 #define MAX_KEY_LENGTH 128
 #define MAX_VAL_LENGTH 128
 
+#define VAR_DELM '.'
+
 #define VAR_OPEN "{$"
 #define VAR_CLOSE "}"
 

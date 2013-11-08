@@ -23,7 +23,8 @@ ctpl-engine
 * 条件语句 if else endif支持
 
 ##使用方法
-* 调用
+
+	[调用]
 	#include <tpl.h > //引入文件支持
 	g_var = hash_new(); //初始化全局变量表
 	ASSIGN("a", "三金个小王八蛋"); //字符串变量指定
@@ -36,14 +37,14 @@ ctpl-engine
 	ARRAY_DONE(b); //将数组挂到全局变量	
 	render("a.tpl"); //执行渲染
 
-* 模板(a.tpl)
+	[模板a.tpl]
 	key a : {$a}
 	key b.c : {$b.c}
 	key b.c.d : {$b.c.d}
 	key b.d : {$b.d}
 	key b.e.C : {$b.e.C}
 
-* 输出
+	[输出]
 	key a : 三金个小王八蛋
 	key b.c : 确实啊
 	key b.c.d : 

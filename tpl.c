@@ -1,25 +1,48 @@
+
 #include "tpl.h"
 
 hash_t *g_var;
 
+#define ARRAY_INIT(name) hash_t *tmp_ht_##name = hash_new();
+
+#define ARRAY_INSERT(name, key, val) hash_set(tmp_ht_##name, key, new_node(TYPE_STRING, val));
+
+#define ARRAY_DONE(name) hash_set(g_var, #name, new_node(TYPE_HASH, tmp_ht_##name));
+
+#define ARRAY_APPEND(name, to) hash_set(tmp_ht_##to, #name, new_node(TYPE_HASH, tmp_ht_##name));
+
 #define ASSIGN(key, val) do{	\
-	hash_set(g_var, key, val);	\
+	hash_set(g_var, key, new_node(TYPE_STRING, val));	\
 }while(0);
 
+pnode_t new_node(int t, void* val){
+	pnode_t pnode;
+	pnode = (pnode_t)malloc(sizeof(node_t));
+	pnode->t = t;
+	pnode->v = val;
+	return pnode;
+}
+
 char *get_key_val(char *key, hash_t *hash_table){
-	char *pos, *val;
+	char *pos;
 	if((pos = strchr(key, VAR_DELM)) != NULL){
 		*(pos++) = '\0';
-		if((val = hash_get(hash_table, key)) != NULL){
-			return get_key_val(pos, val);			
+		if(hash_has(hash_table, key)){
+			if(TYPE_HASH == ((pnode_t)hash_get(hash_table, key))->t){
+				return get_key_val(pos, ((pnode_t)hash_get(hash_table, key))->v);
+			}
+			else{
+				return "";
+			}
+			
 		}
 		else{
 			return "";
 		}
 	}
 	else{
-		if((val = hash_get(hash_table, key)) != NULL){
-			return val;
+		if(TYPE_STRING == ((pnode_t)hash_get(hash_table, key))->t){			 
+			return (char *)((pnode_t)hash_get(hash_table, key))->v;
 		}
 		else{
 			return "";
@@ -73,18 +96,21 @@ int load_file(char *tpl){
 }
 
 int main(int argc, char *argv[]){
+	#ifdef _ENABLE_TRACEBACK
+	init_environments();
+	#endif
 	g_var = hash_new();
+
 	ASSIGN("a", "三金个小王八蛋");
 
-	hash_t *n_h1 = hash_new();
-	hash_set(n_h1, "c", "确实");
-
-	hash_t *n_h2 = hash_new();
-	hash_set(n_h2, "e", "确实啊");
-	hash_set(n_h1, "d", n_h2);
-
-	ASSIGN("b", n_h1);	
-
+	ARRAY_INIT(b);
+	ARRAY_INSERT(b, "c", "确实啊ccccc");
+	ARRAY_INSERT(b, "d", "ed");
+	ARRAY_INIT(e);
+	ARRAY_INSERT(e, "C", "小儿");
+	ARRAY_APPEND(e, b);
+	ARRAY_DONE(b);
+	
 	render("a.tpl");
 	return 0;
 }

@@ -4,18 +4,31 @@ ctpl-engine
 ##ctpl-engine是什么
 为了解决在某些极端情况下，无法使用流行的模板引擎(例如某些情景下无法使用php环境)，用来做html视图分开的一种模板引擎替代，直接使用c语言编写
 
+##what is ctpl-engine
+It's a template engine wrote in pure C language. When then environment disallow to use popular template engine like php etc. Cgi can render the template file directly.
+
 
 ##ctpl-engine有哪些特点
-
 * c语言标准库编写，cgi中直接调用
 * 在某些嵌入式系统上，可以快速的实现视图业务分离
 * 渲染速度比普通引擎快
+
+##Features of ctpl-engine
+* Written by C language. Can be called in cgi.
+* Separate view and logic.
+* Faster than other engines.
 
 ##目前状态
 * 2013-11-01 实现了字串标签的替换
 * 2013-11-04 实现了嵌套key.key.key[.keys]的调用方式
 * 2013-11-08 修复了assign a.b 字符串后 使用 {$a.b.c}会导致seg fault的问题
 * 2013-11-08 引入变量类型控制机制（暂时支持TYPE_STRING|TYPE_HASH）
+
+##Current status
+* 2013-11-01 Support String tags
+* 2013-11-04 Support tags like key1.key2.key3.[keys]
+* 2013-11-08 Fix bug[ when assign "a.b" as a string, call {$a.b.c} makes a seg fault
+* 2013-11-08 add a new type node_t for tag variables 
 
 ##Todo
 * 支持复杂类型的key.key嵌套调用[已完成]
@@ -51,7 +64,6 @@ ctpl-engine
 	key b.d : 而且还是ED
 	key b.e.C : 小儿hoho~
 
-##关于作者
-
-* 邮件(hellovigoss#gmail.com, 把#换成@)
+##About
+* Email:hellovigoss#gmail.com ('#' => '@')
 * weibo: [@v5871b崽](http://weibo.com/hellovigoss)

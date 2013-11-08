@@ -1,19 +1,19 @@
-ctpl-engine
+C-template-engine
 ===========
 
-##ctpl-engine是什么
+##C-template-engine是什么
 为了解决在某些极端情况下，无法使用流行的模板引擎(例如某些情景下无法使用php环境)，用来做html视图分开的一种模板引擎替代，直接使用c语言编写
 
-##what is ctpl-engine
+##what is C-template-engine
 It's a template engine wrote in pure C language. When then environment disallow to use popular template engine like php etc. Cgi can render the template file directly.
 
 
-##ctpl-engine有哪些特点
+##C-template-engine有哪些特点
 * c语言标准库编写，cgi中直接调用
 * 在某些嵌入式系统上，可以快速的实现视图业务分离
 * 渲染速度比普通引擎快
 
-##Features of ctpl-engine
+##Features of C-template-engine
 * Written by C language. Can be called in cgi.
 * Separate view and logic.
 * Faster than other engines.
